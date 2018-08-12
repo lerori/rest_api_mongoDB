@@ -21,3 +21,5 @@ Route::get('edit/{id}','TaskController@edit');
 Route::post('edit/{id}','TaskController@update');
 
 Route::delete('{id}','TaskController@destroy');
+
+Route::get('seed', 'TaskController@seed'); //Seeder

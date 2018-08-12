@@ -40,8 +40,8 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
-            <label for="Completed">Completed:</label>
-            <input type="text" class="form-control" name="completed" value="{{$task->completed}}">
+              <label for="Completed">Completed:</label>
+              <input type="checkbox" class="form-control" name="completed" value="{{$task->completed}}">
           </div>
         </div>
         <div class="row">

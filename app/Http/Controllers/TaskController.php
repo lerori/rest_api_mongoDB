@@ -137,7 +137,18 @@ class TaskController extends Controller
             'completed' => ''
         ]);
 
-        $task = Task::create($request->all());
+        //with inyection
+        //$task = Task::create($request->all());
+        //without inyection  
+        $task = new Task();
+        $task->title = $request->get('title');
+        $task->description = $request->get('description');
+        //////////////// Updated ISO8601 ////////////////////
+        $task->due_date = $this->toIsoDate8601($request->get('due_date'));
+        /////////////////////// Updated Boolean ////////////////////////
+        $task->completed = $this->toBoolean($request->get('completed'));   
+
+        $task->save();
 
         $this->forgetCache();
 
@@ -176,8 +187,18 @@ class TaskController extends Controller
             'completed' => ''
         ]);
 
-        $task->update($request->all());
+        //with inyection
+        //$task->update($request->all());
+        //without inyection  
+        $task->title = $request->get('title');
+        $task->description = $request->get('description');
+        //////////////// Updated ISO8601 ////////////////////
+        $task->due_date = $this->toIsoDate8601($request->get('due_date')); 
+        /////////////////////// Updated Boolean ////////////////////////
+        $task->completed = $this->toBoolean($request->get('completed'));   
 
+        $task->save();
+        //
         $this->forgetCache(); 
 
         return response()->json($task, 200);
@@ -199,6 +220,35 @@ class TaskController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * Convert string date a ISODate8601 (mongo datetime)
+     *
+     * @return ISODate8601
+     */
+    public function toIsoDate8601($date)
+    {
+        $datetime = new \DateTime($date);
+        
+        return $datetime->format(\DateTime::ATOM);
+    }
+
+    /**
+     * Convert to boolean var
+     *
+     * @return boolean
+     */
+    public function toBoolean($bool)
+    {
+       if ($bool == 1 Or $bool == true Or $bool == 'true')
+            {
+                $bool = true;
+            } else {
+                   $bool = false;
+            } 
+        return (bool)$bool;
+    }
+
 
     /**
      * Inicialize cached variables.
@@ -233,17 +283,19 @@ class TaskController extends Controller
         $this->validate($request, [
             'title' => 'required',            
             'due_date' => 'required'
-        ]);
-
-        $task = Task::create($request->all());
-/*      without inyection
-        $task = new Task();
+        ]);     
+        //with inyection
+        //$task = Task::create($request->all());
+        //without inyection  
         $task->title = $request->get('title');
         $task->description = $request->get('description');
-        $task->due_date = $request->get('due_date');        
-        $task->completed = $request->get('completed'); 
+        //////////////// Updated ISO8601 ////////////////////
+        $task->due_date = $this->toIsoDate8601($request->get('due_date'));
+        /////////////////////// Updated Boolean ////////////////////////
+        $task->completed = $this->toBoolean($request->get('completed'));         
+
         $task->save();
-*/        
+
         return redirect('task')->with('success', 'Task has been successfully added');
     }
 
@@ -267,15 +319,18 @@ class TaskController extends Controller
             'due_date' => 'required',
         ]);
         $task= Task::find($id);
-        $task->update($request->all());
-/*      without inyection  
-        $task= Task::find($id);
+        //with inyection
+        //$task->update($request->all());
+        //without inyection  
         $task->title = $request->get('title');
         $task->description = $request->get('description');
-        $task->due_date = $request->get('due_date');        
-        $task->completed = $request->get('completed');        
+        //////////////// Updated ISO8601 ////////////////////
+        $task->due_date = $this->toIsoDate8601($request->get('due_date')); 
+        /////////////////////// Updated Boolean ////////////////////////
+        $task->completed = $this->toBoolean($request->get('completed')); 
+
         $task->save();
-*/        
+        
         return redirect('task')->with('success', 'Task has been successfully update');
     }
     
@@ -285,4 +340,30 @@ class TaskController extends Controller
         $task->delete();
         return redirect('task')->with('success','Task has been  deleted');
     }
+
+ /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function seed()
+    {
+        //
+        
+        for ($i=0; $i<50; $i++)
+        {
+            $task = new Task();
+            $task->title = 'Title'.(string)$i;
+            $task->description = 'description'.(string)$i;
+            //////////////// Updated ISO8601 ////////////////////
+            $task->due_date = $this->toIsoDate8601('2018-08-11');
+            /////////////////////////////////////////////////////       
+            $task->completed = false;   
+
+            $task->save();
+        }
+
+        return response()->json(['status'=>'ok','data'=>$task], 200);
+    }
+
 }

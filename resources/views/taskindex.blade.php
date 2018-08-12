@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="container">
-    <br />
+    <h2>TO DO list</h2><br />
     @if (\Session::has('success'))
       <div class="alert alert-success">
         <p>{{ \Session::get('success') }}</p>

@@ -20,28 +20,28 @@
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Title">Title:</label>
-            <input type="text" class="form-control" name="title" {{ old('title') }}>
+            <input type="text" class="form-control" name="title" value="{{ old('title') }}">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Description">Description:</label>
-            <input type="text" class="form-control" name="description">
+            <input type="text" class="form-control" name="description" value="{{ old('description') }}">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Due date">Due_date:</label>            
-            <input type="text" class="form-control datepicker" name="due_date">
+            <input type="text" class="form-control datepicker" name="due_date" value="{{ old('due_date') }}">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-4">
             <label for="Completed">Completed:</label>
-            <input type="text" class="form-control" name="completed">
+            <input type="text" class="form-control" name="completed" value="{{ old('completed') }}">
           </div>
         </div>
         <div class="row">
