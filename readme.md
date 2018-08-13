@@ -1,4 +1,4 @@
-<h1 align="center">REST web service of a TO DO list</h1>
+<h1 align="center">REST web service of a TO DO list en Laravel 5.6/Mongodb</h1>
 
 <h2>About</h2>
 
@@ -23,11 +23,16 @@
 </ul>
 <ul>
 <h3>Using</h3>
-<li>use MongoDB 4.0.1 as database</li>
+<li>use MongoDB 4.0.1 as database without auth</li>
 <li>The list of all result must be cached with Redis or Memcached</li>
 </ul>
 
-<h3>Task Schema:</h3>
+<h3>Database</h3>
+
+<p>Must exist prueba database</p>
+<p>For special seed: http://localhost/laravelmongodb/public/seed</p>
+
+<h3>Task Schema: (auto craete by seed)</h3>
 
 <p>_id         [id]</p>
 <p>title       [string] (required)</p>
@@ -36,11 +41,6 @@
 <p>completed   [boolean] (default: false)</p>
 <p>created_at  [datetime]</p>
 <p>updated_at  [datetime]</p>
-
-<h3>Database</h3>
-
-<p>For create database/collection: php artisan migrate</p>
-<p>For especial seed: http://localhost/laravelmongodb/public/seed</p>
 
 <h3>running Api</h3>
 
@@ -51,8 +51,10 @@
 <p>http://localhost/laravelmongodb/public/api/task/created=xxxx-xx-xx  --> Show  all task< created at</p>
 <p>http://localhost/laravelmongodb/public/api/task/updated=xxxx-xx-xx  --> Show  all task< updated at</p>
 <p>http://localhost/laravelmongodb/public/api/update/{task}  --> Update task id</p>
-<p>http://localhost/laravelmongodb/public/api/save/{task}  --> Create task</p>
+<p>http://localhost/laravelmongodb/public/api/save/  --> Create task</p>
 <p>http://localhost/laravelmongodb/public/api/delete/{task}  --> Delete task id</p>
 
 <h3>running Web</h3>
 <p>http://localhost/laravelmongodb/public/task  --> ToDo List Web </p>
+
+For more info: php artisan route:list
